@@ -2,6 +2,18 @@ doctype html
 html
   head
     title= title
+    meta(charset='UTF-8')
+    meta(http-equiv='content-type' content='text/html; charset=utf-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no')
+    meta(content='telephone=no' name='format-detection')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+body
+  div.nav.serif
+    div.search
+      input(placeholder='搜索...' class='search-input')
+      ul.search-complete
+    a(href="//javascript.mom" title="hoosin blogs" class="nav-item")
+      strong='javascript.mom'
+  block content
+  script(src='./javascripts/bundle.js')
+
