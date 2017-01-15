@@ -1,10 +1,13 @@
 extends layout
 
 block content
-  h1#logo.container hoosin blogs
+  h1#logo.container=title
   .container.typo
     h4 文章归档
     section#posts
-
-
-
+      each posts in body
+        div
+          i=posts.number+'. '
+          a(href=`${posts.url}`)=posts.title
+          small= ' '+posts.created_at
+          p='no description'
