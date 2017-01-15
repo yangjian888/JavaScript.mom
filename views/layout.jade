@@ -12,8 +12,15 @@ body
     div.search
       input(placeholder='搜索...' class='search-input')
       ul.search-complete
-    a(href="//javascript.mom" title="hoosin blogs" class="nav-item")
+    a(href="//javascript.mom" title='hoosin blogs' class='nav-item')
       strong='javascript.mom'
+    a( href='/about' class='nav-item')='关于'
   block content
+  div#footer.serif.typo-small
+    | Written by
+    a(href='/about') hoosin
+    | , all right reserved. Theme by
+    a(href='https://github.com/sofish') sofish
+    | .
   script(src='./javascripts/bundle.js')
 

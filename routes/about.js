@@ -2,9 +2,12 @@ const router = require('koa-router')()
 
 router.get('/', async(ctx, next) => {
   ctx.state = {
-    title: 'hoosin (@hoosin) blogs'
+    title: '关于 hoosin'
   }
+  await ctx.render('about', {})
 
-  await ctx.render('index', {})
 })
+
 module.exports = router
+
+
