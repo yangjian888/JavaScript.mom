@@ -13,7 +13,7 @@ router.get('/', async(ctx, next) => {
     }
   })
 
-  console.log(result)
+  console.log(result.body)
 
   let body = JSON.parse(result.body)
 
