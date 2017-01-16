@@ -8,6 +8,6 @@ block content
       each posts in body
         div
           i=posts.number+' . '
-          a(href=`${posts.html_url}`)=posts.title
+          a(href=`./article/${posts.number}`)=posts.title
           small= ' '+posts.created_at
           p='no description'

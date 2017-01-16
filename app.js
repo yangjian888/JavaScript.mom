@@ -11,6 +11,8 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const about = require('./routes/about')
+const article = require('./routes/article')
+
 
 // middlewares
 app.use(convert(bodyparser))
@@ -32,6 +34,8 @@ app.use(async (ctx, next) => {
 
 router.use('/', index.routes(), index.allowedMethods())
 router.use('/about', about.routes(), about.allowedMethods())
+router.use('/article/:articleId', article.routes(), article.allowedMethods())
+
 
 app.use(router.routes(), router.allowedMethods())
 // response

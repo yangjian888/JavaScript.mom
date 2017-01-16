@@ -13,11 +13,11 @@ router.get('/', async(ctx, next) => {
     }
   })
 
-  let body = result.body
+  let body = JSON.parse(result.body)
 
   ctx.state = {
     title: 'hoosin (@hoosin) blogs',
-    body: JSON.parse(body)
+    body: body
   }
 
   await ctx.render('index', {})
