@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const request = require('co-request')
 
-const md = require('markdown-it')();
+const md = require('markdown-it')()
 
 
 router.get('/', async(ctx, next) => {
@@ -17,7 +17,7 @@ router.get('/', async(ctx, next) => {
 
   let body = JSON.parse(result.body)
 
-  var mdResult = md.render(body.body)
+  let mdResult = md.render(body.body)
 
   ctx.state = {
     title: body.title,
