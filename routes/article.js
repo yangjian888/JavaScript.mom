@@ -15,13 +15,14 @@ router.get('/', async(ctx, next) => {
     }
   })
 
-  let body = JSON.parse(result.body)
 
+  let body = JSON.parse(result.body)
   let mdResult = md.render(body.body)
 
   ctx.state = {
     title: body.title,
-    article: mdResult || '<p>暂无内容</p>'
+    article: mdResult || '<p>暂无内容</p>',
+    url:ctx.url
   }
 
   await ctx.render('article', {})
