@@ -22,7 +22,7 @@ router.get('/', async(ctx, next) => {
   ctx.state = {
     title: body.title,
     article: mdResult || '<p>暂无内容</p>',
-    url:ctx.url
+    url:ctx.req.url
   }
 
   await ctx.render('article', {})
