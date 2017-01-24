@@ -1,19 +1,9 @@
 const router = require('koa-router')()
-const request = require('co-request')
-
-//https://api.github.com/repos/hoosin/hoosin.github.io/issues
-
+const fs = require('fs')
 
 router.get('/', async(ctx, next) => {
 
-  let result = await request({
-    url: 'https://api.github.com/repos/hoosin/hoosin.github.io/issues',
-    headers: {
-      'User-Agent': 'request'
-    }
-  })
-
-  let body = JSON.parse(result.body)
+  let body = JSON.parse(fs.readFileSync('./db/list.json'))
 
   ctx.state = {
     title: 'hoosin (@hoosin) blogs',

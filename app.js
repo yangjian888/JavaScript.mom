@@ -12,7 +12,59 @@ const logger = require('koa-logger')
 const index = require('./routes/index')
 const about = require('./routes/about')
 const article = require('./routes/article')
+const schedule = require('node-schedule')
 
+const request = require('co-request')
+
+const fs = require('fs')
+
+
+
+let list = JSON.parse(fs.readFileSync('./db/list.json'))
+
+
+const j = schedule.scheduleJob('30 * * * *', function () {
+
+
+  //https://api.github.com/repos/hoosin/hoosin.github.io/issues
+
+  //Time to climb the article page, written in the local
+
+  co(function* () {
+    let result = yield request({
+      url: 'https://api.github.com/repos/hoosin/hoosin.github.io/issues',
+      headers: {
+        'User-Agent': 'request'
+      }
+    })
+    let body = result.body
+
+    fs.writeFileSync('./db/list.json', body)
+
+    for (var i = 0; i < list.length; i++) {
+
+      let result = yield request({
+        url: `https://api.github.com/repos/hoosin/hoosin.github.io/issues/${list[i].number}`,
+        headers: {
+          'User-Agent': 'request'
+        }
+      })
+
+      let body = result.body
+
+      fs.writeFileSync(`./db/article/${list[i].number}.json`, body)
+
+
+    }
+
+    console.log('The answer to life, the universe, and everything!')
+
+  }).catch(function (err) {
+    console.error(err)
+  })
+
+
+})
 
 // middlewares
 app.use(convert(bodyparser))
@@ -24,8 +76,9 @@ app.use(views(__dirname + '/views', {
   extension: 'jade'
 }))
 
+
 // logger
-app.use(async (ctx, next) => {
+app.use(async(ctx, next) => {
   const start = new Date()
   await next()
   const ms = new Date() - start
@@ -40,7 +93,7 @@ router.use('/article/:articleId', article.routes(), article.allowedMethods())
 app.use(router.routes(), router.allowedMethods())
 // response
 
-app.on('error', (err, ctx)=>{
+app.on('error', (err, ctx) => {
   console.log(err)
   log.error('server error', err, ctx)
 })
