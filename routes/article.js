@@ -10,8 +10,18 @@ router.get('/', async(ctx, next) => {
 
   let articleId = ctx.params.articleId
 
-  let body = JSON.parse(fs.readFileSync(`./db/article/${articleId}.json`))
+  let body = []
+
+  try {
+    body = JSON.parse(fs.readFileSync(`./db/article/${articleId}.json`, 'utf-8'))
+  } catch (err) {
+    console.log(err)
+    body = {body: '#### 暂无内容'}
+  }
+
+
   let mdResult = md.render(body.body)
+
 
   ctx.state = {
     title: body.title,

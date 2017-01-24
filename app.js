@@ -18,19 +18,15 @@ const request = require('co-request')
 
 const fs = require('fs')
 
+const j = schedule.scheduleJob('21 * * * *', function () {
 
-
-let list = JSON.parse(fs.readFileSync('./db/list.json'))
-
-
-const j = schedule.scheduleJob('30 * * * *', function () {
-
+  console.log('Start~~~')
 
   //https://api.github.com/repos/hoosin/hoosin.github.io/issues
 
   //Time to climb the article page, written in the local
 
-  co(function* () {
+  co(function*() {
     let result = yield request({
       url: 'https://api.github.com/repos/hoosin/hoosin.github.io/issues',
       headers: {
@@ -41,21 +37,28 @@ const j = schedule.scheduleJob('30 * * * *', function () {
 
     fs.writeFileSync('./db/list.json', body)
 
-    for (var i = 0; i < list.length; i++) {
 
-      let result = yield request({
-        url: `https://api.github.com/repos/hoosin/hoosin.github.io/issues/${list[i].number}`,
-        headers: {
-          'User-Agent': 'request'
-        }
-      })
+    try {
+      let list = JSON.parse(fs.readFileSync('./db/list.json'))
 
-      let body = result.body
+      for (let i = 0; i < list.length; i++) {
 
-      fs.writeFileSync(`./db/article/${list[i].number}.json`, body)
+        let result = yield request({
+          url: `https://api.github.com/repos/hoosin/hoosin.github.io/issues/${list[i].number}`,
+          headers: {
+            'User-Agent': 'request'
+          }
+        })
 
+        let body = result.body
 
+        fs.writeFileSync(`./db/article/${list[i].number}.json`, body)
+
+      }
+    } catch (err) {
+      console.log(err)
     }
+
 
     console.log('The answer to life, the universe, and everything!')
 
