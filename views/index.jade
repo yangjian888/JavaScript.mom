@@ -5,10 +5,10 @@ block content
   .container.typo
     h4 文章归档
     section#posts
-      each posts in body
+      each posts, index in body
         div
-          i=posts.number+' . '
+          i=(index + 1) + ' . '
           a(href=`./article/${posts.number}`)=posts.title
-          small= ' '+posts.created_at
+          small= ' ' + posts.created_at
           p='no description'
   script(src='./javascripts/bundle.js')
