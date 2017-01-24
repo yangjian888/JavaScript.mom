@@ -35,7 +35,7 @@ const j = schedule.scheduleJob('21 * * * *', function () {
     })
     let body = result.body
 
-    fs.writeFileSync('./db/list.json', body)
+    fs.writeFileSync('./db/list.json', body, 'utf-8')
 
 
     try {
@@ -52,7 +52,7 @@ const j = schedule.scheduleJob('21 * * * *', function () {
 
         let body = result.body
 
-        fs.writeFileSync(`./db/article/${list[i].number}.json`, body)
+        fs.writeFileSync(`./db/article/${list[i].number}.json`, body, 'utf-8')
 
       }
     } catch (err) {
