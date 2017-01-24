@@ -14,31 +14,57 @@ const about = require('./routes/about')
 const article = require('./routes/article')
 const schedule = require('node-schedule')
 
+const del = require('del')
+
 const request = require('co-request')
 
 const fs = require('fs')
 
-const j = schedule.scheduleJob('21 * * * *', function () {
 
-  console.log('Start~~~')
+const fetchData = {}
 
-  //https://api.github.com/repos/hoosin/hoosin.github.io/issues
+fetchData.list = () => {
 
-  //Time to climb the article page, written in the local
+  // mkdir db folder
+  fs.mkdirSync('./db/article', '0777')
+  console.log('mkdir db')
 
   co(function*() {
-    let result = yield request({
-      url: 'https://api.github.com/repos/hoosin/hoosin.github.io/issues',
-      headers: {
-        'User-Agent': 'request'
-      }
-    })
-    let body = result.body
-
-    fs.writeFileSync('./db/list.json', body, 'utf-8')
-
-
     try {
+
+      // fetch api => https://api.github.com/repos/hoosin/hoosin.github.io/issues
+      let result = yield request({
+        url: 'https://api.github.com/repos/hoosin/hoosin.github.io/issues',
+        headers: {
+          'User-Agent': 'request'
+        }
+      })
+
+      let body = result.body
+      fs.writeFileSync('./db/list.json', body, 'utf-8')
+
+      console.log('list done!')
+
+      fetchData.article()
+
+
+    } catch (err) {
+      console.log(err)
+    }
+
+
+  }).catch(function (err) {
+    console.error(err)
+  })
+}
+
+fetchData.article = () => {
+
+
+  co(function*() {
+    try {
+
+
       let list = JSON.parse(fs.readFileSync('./db/list.json'))
 
       for (let i = 0; i < list.length; i++) {
@@ -54,16 +80,45 @@ const j = schedule.scheduleJob('21 * * * *', function () {
 
         fs.writeFileSync(`./db/article/${list[i].number}.json`, body, 'utf-8')
 
+        console.log(`article ${list[i].number} done!`)
+
+
       }
+
     } catch (err) {
       console.log(err)
     }
 
 
-    console.log('The answer to life, the universe, and everything!')
-
   }).catch(function (err) {
     console.error(err)
+  })
+
+}
+
+
+const j = schedule.scheduleJob('31 * * * *', function () {
+
+  console.log('Start~~~')
+
+
+  fs.readdir('./db/article', (err, files) => {
+
+
+    if (err || files.length === '0') {
+
+      fetchData.list()
+
+    } else if (files.length !== '0') {
+
+      del(['./db/article']).then(paths => {
+        console.log('Deleted files and folders:\n', paths.join('\n'))
+        fetchData.list()
+      })
+
+    }
+
+
   })
 
 

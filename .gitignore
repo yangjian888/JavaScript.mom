@@ -6,6 +6,5 @@
 node_modules
 build
 
-/db/*/*.json
-/db/*.json
+/db/
 
