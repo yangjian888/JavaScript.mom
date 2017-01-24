@@ -2,108 +2,26 @@ const Koa = require('koa')
 const app = new Koa()
 const router = require('koa-router')()
 const views = require('koa-views')
-const co = require('co')
 const convert = require('koa-convert')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')()
 const logger = require('koa-logger')
-
 const index = require('./routes/index')
 const about = require('./routes/about')
 const article = require('./routes/article')
 const schedule = require('node-schedule')
-
 const del = require('del')
-
-const request = require('co-request')
-
 const fs = require('fs')
 
-
-const fetchData = {}
-
-fetchData.list = () => {
-
-  // mkdir db folder
-  fs.mkdirSync('./db/article', '0777')
-  console.log('mkdir db')
-
-  co(function*() {
-    try {
-
-      // fetch api => https://api.github.com/repos/hoosin/hoosin.github.io/issues
-      let result = yield request({
-        url: 'https://api.github.com/repos/hoosin/hoosin.github.io/issues',
-        headers: {
-          'User-Agent': 'request'
-        }
-      })
-
-      let body = result.body
-      fs.writeFileSync('./db/list.json', body, 'utf-8')
-
-      console.log('list done!')
-
-      fetchData.article()
+const fetchData = require('./fetch/app')
 
 
-    } catch (err) {
-      console.log(err)
-    }
-
-
-  }).catch(function (err) {
-    console.error(err)
-  })
-}
-
-fetchData.article = () => {
-
-
-  co(function*() {
-    try {
-
-
-      let list = JSON.parse(fs.readFileSync('./db/list.json'))
-
-      for (let i = 0; i < list.length; i++) {
-
-        let result = yield request({
-          url: `https://api.github.com/repos/hoosin/hoosin.github.io/issues/${list[i].number}`,
-          headers: {
-            'User-Agent': 'request'
-          }
-        })
-
-        let body = result.body
-
-        fs.writeFileSync(`./db/article/${list[i].number}.json`, body, 'utf-8')
-
-        console.log(`article ${list[i].number} done!`)
-
-
-      }
-
-    } catch (err) {
-      console.log(err)
-    }
-
-
-  }).catch(function (err) {
-    console.error(err)
-  })
-
-}
-
-
-const j = schedule.scheduleJob('31 * * * *', function () {
+const j = schedule.scheduleJob('53 * * * *', function () {
 
   console.log('Start~~~')
 
-
   fs.readdir('./db/article', (err, files) => {
-
 
     if (err || files.length === '0') {
 
@@ -118,9 +36,7 @@ const j = schedule.scheduleJob('31 * * * *', function () {
 
     }
 
-
   })
-
 
 })
 
