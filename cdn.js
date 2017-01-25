@@ -1,1 +1,1 @@
-require('./qiniu/qiniu')()
+require('./qiniu/app')()

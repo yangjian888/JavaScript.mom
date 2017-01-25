@@ -2,16 +2,12 @@ extends layout
 
 block content
   h1#logo.container=title
-  .container.typo!=body
-  .container.typo
-    hr
   .container.typo
     section#posts
-      each posts, index in list
+      each posts, index in body
         div
           i=(index + 1) + ' . '
           a(href=`./article/${posts.number}`)=posts.title
           small.created-at= ' ' + posts.created_at
           p='no description'
-
   script(src='./javascripts/bundle.js')

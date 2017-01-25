@@ -8,7 +8,7 @@ const fetchData = {}
 fetchData.list = () => {
 
   // mkdir db folder
-  fs.mkdirSync('./db/article', '0777')
+  fs.mkdirSync('./db/github/article', '0777')
   console.log('mkdir db')
 
   co(function*() {
@@ -23,7 +23,7 @@ fetchData.list = () => {
       })
 
       let body = result.body
-      fs.writeFileSync('./db/list.json', body, 'utf-8')
+      fs.writeFileSync('./db/github/list.json', body, 'utf-8')
 
       console.log('list done!')
 
@@ -46,8 +46,7 @@ fetchData.article = () => {
   co(function*() {
     try {
 
-
-      let list = JSON.parse(fs.readFileSync('./db/list.json'))
+      let list = JSON.parse(fs.readFileSync('./db/github/list.json'))
 
       for (let i = 0; i < list.length; i++) {
 
@@ -60,7 +59,7 @@ fetchData.article = () => {
 
         let body = result.body
 
-        fs.writeFileSync(`./db/article/${list[i].number}.json`, body, 'utf-8')
+        fs.writeFileSync(`./db/github/article/${list[i].number}.json`, body, 'utf-8')
 
         console.log(`article ${list[i].number} done!`)
 

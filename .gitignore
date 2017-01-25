@@ -6,6 +6,5 @@
 node_modules
 build
 
-/db/
+/db/github
 /qiniu/config.js
-

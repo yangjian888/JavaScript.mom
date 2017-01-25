@@ -6,6 +6,7 @@ import fetchData from './fetch/app'
 import index  from './routes/index'
 import article from './routes/article'
 import about  from './routes/about'
+import list  from './routes/list'
 import views from 'koa-views'
 import convert  from 'koa-convert'
 import json  from 'koa-json'
@@ -22,7 +23,7 @@ const j = schedule.scheduleJob('53 * * * *', () => {
 
   console.log('Start~~~')
 
-  fs.readdir('./db/article', (err, files) => {
+  fs.readdir('./db/github/article', (err, files) => {
 
     if (err || files.length === '0') {
 
@@ -62,6 +63,7 @@ app.use(async(ctx, next) => {
 
 router.use('/', index.routes(), index.allowedMethods())
 router.use('/about', about.routes(), about.allowedMethods())
+router.use('/list', list.routes(), list.allowedMethods())
 router.use('/article/:articleId', article.routes(), article.allowedMethods())
 
 
