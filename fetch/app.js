@@ -35,7 +35,7 @@ fetchData.list = () => {
     }
 
 
-  }).catch(function (err) {
+  }).catch((err) => {
     console.error(err)
   })
 }
@@ -72,7 +72,7 @@ fetchData.article = () => {
     }
 
 
-  }).catch(function (err) {
+  }).catch((err) => {
     console.error(err)
   })
 

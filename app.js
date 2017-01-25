@@ -1,23 +1,24 @@
-const Koa = require('koa')
+import Koa from 'koa'
+import schedule from 'node-schedule'
+import fs from 'fs'
+import del from 'del'
+import fetchData from './fetch/app'
+import index  from './routes/index'
+import article from './routes/article'
+import about  from './routes/about'
+import views from 'koa-views'
+import convert  from 'koa-convert'
+import json  from 'koa-json'
+import logger from 'koa-logger'
+import _router from 'koa-router'
+import _bodyparser from 'koa-bodyparser'
+
 const app = new Koa()
-const router = require('koa-router')()
-const views = require('koa-views')
-const convert = require('koa-convert')
-const json = require('koa-json')
-const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')()
-const logger = require('koa-logger')
-const index = require('./routes/index')
-const about = require('./routes/about')
-const article = require('./routes/article')
-const schedule = require('node-schedule')
-const del = require('del')
-const fs = require('fs')
-
-const fetchData = require('./fetch/app')
+const router = new _router()
+const bodyparser = new _bodyparser()
 
 
-const j = schedule.scheduleJob('53 * * * *', function () {
+const j = schedule.scheduleJob('53 * * * *', () => {
 
   console.log('Start~~~')
 
