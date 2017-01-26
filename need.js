@@ -1,6 +1,6 @@
-const del = require('del')
-const fs = require('fs')
-const fetchData = require('./fetch/app')
+import del from 'del'
+import fs from 'fs'
+import fetchData from './fetch/app'
 
 
 console.log('Start~~~')
