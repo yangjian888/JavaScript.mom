@@ -5,7 +5,7 @@ const fetchData = require('./fetch/app')
 
 console.log('Start~~~')
 
-fs.readdir('./db/github/article', (err, files) => {
+fs.readdir('./db/article', (err, files) => {
 
   if (err || files.length === '0') {
 
@@ -13,7 +13,7 @@ fs.readdir('./db/github/article', (err, files) => {
 
   } else if (files.length !== '0') {
 
-    del(['./db/github/article']).then(paths => {
+    del(['./db/article']).then(paths => {
       console.log('Deleted files and folders:\n', paths.join('\n'))
       fetchData.list()
     })

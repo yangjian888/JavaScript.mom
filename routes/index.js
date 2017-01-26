@@ -10,7 +10,7 @@ router.get('/', async(ctx, next) => {
 
   try {
     body = JSON.parse(fs.readFileSync('./db/index.db.json', 'utf-8'))
-    list = JSON.parse(fs.readFileSync('./db/github/list.json', 'utf-8'))
+    list = JSON.parse(fs.readFileSync('./db/list.json', 'utf-8'))
   } catch (err) {
     console.log(err)
     list = [{number: err.code, title: err.errno, created_at: ' no such file or directory' + err.path}]

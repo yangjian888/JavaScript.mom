@@ -23,7 +23,7 @@ const j = schedule.scheduleJob('53 * * * *', () => {
 
   console.log('Start~~~')
 
-  fs.readdir('./db/github/article', (err, files) => {
+  fs.readdir('./db/article', (err, files) => {
 
     if (err || files.length === '0') {
 

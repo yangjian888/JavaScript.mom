@@ -12,7 +12,7 @@ router.get('/', async(ctx, next) => {
   let body = []
 
   try {
-    body = JSON.parse(fs.readFileSync(`./db/github/article/${articleId}.json`, 'utf-8'))
+    body = JSON.parse(fs.readFileSync(`./db/article/${articleId}.json`, 'utf-8'))
   } catch (err) {
     console.log(err)
     body = {body: '#### 暂无内容'}
