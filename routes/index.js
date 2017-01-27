@@ -21,7 +21,6 @@ router.get('/', async(ctx, next) => {
   let mdResult = md.render(body.data)
 
 
-  console.log(body)
   ctx.state = {
     title: 'hoosin 的私人博客',
     body: mdResult,
