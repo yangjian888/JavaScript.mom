@@ -5,7 +5,6 @@
 *.log
 node_modules
 build
-
 /db/article
 /db/list.json
 /qiniu/config.js
