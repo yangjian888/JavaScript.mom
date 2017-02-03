@@ -82,10 +82,13 @@ app.use(async(ctx) => {
     status: 404,
     message: 'nothing found.',
     stack: '1',
+    title: 'not found'
   }
 
 
-  await ctx.render('error.jade')
+  await ctx.render('error.jade', {})
+
+
 })
 
 
