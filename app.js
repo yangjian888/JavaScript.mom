@@ -14,6 +14,7 @@ import logger from 'koa-logger'
 import _router from 'koa-router'
 import _bodyparser from 'koa-bodyparser'
 
+
 const app = new Koa()
 const router = new _router()
 const bodyparser = new _bodyparser()
@@ -73,6 +74,18 @@ app.use(router.routes(), router.allowedMethods())
 app.on('error', (err, ctx) => {
   console.log(err)
   log.error('server error', err, ctx)
+})
+
+// 404
+app.use(async(ctx) => {
+  ctx.state = {
+    status: 404,
+    message: 'nothing found.',
+    stack: '1',
+  }
+
+
+  await ctx.render('error.jade')
 })
 
 
