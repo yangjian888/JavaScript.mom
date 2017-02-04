@@ -2,9 +2,12 @@ extends layout
 
 block content
   h1#logo.container 关于 hoosin
+
   .container.typo!=body
     div
       .github-card(data-github='hoosin', data-width='auto', data-height='150', data-theme='default')
       script(src='//cdn.jsdelivr.net/github-cards/latest/widget.js')
+
   .container.typo!=ping
+
   script(src='./javascripts/bundle.js')
