@@ -8,7 +8,7 @@ block content
     section#posts
       each posts, index in list
         div
-          i=(index + 1) + ' . '
+          span=(index + 1) + '. '
           a(href=`./article/${posts.number}`)=posts.title
           small.created-at= ' ' + posts.created_at
           p='no description'
