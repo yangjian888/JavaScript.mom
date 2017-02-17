@@ -19,7 +19,7 @@ router.get('/', async(ctx, next) => {
 
 
   ctx.state = {
-    title: '关于 hoosin',
+    title: '關於 hoosin',
     body: mdResult,
     ping: mbPing
   }

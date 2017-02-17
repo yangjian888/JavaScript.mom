@@ -13,7 +13,7 @@ router.get('/', async(ctx, next) => {
   }
 
   ctx.state = {
-    title: '文章归档',
+    title: '文章歸檔',
     body: body || []
   }
 
