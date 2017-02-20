@@ -9,22 +9,22 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='Shortcut Icon' href='/images/favicon.ico' type='image/x-icon')
 
-body
-  div.nav.serif
-    div.search
-      input(placeholder='搜索...' class='search-input')
-      ul.search-complete
-    a(href="//javascript.mom" title='hoosin blogs' class='nav-item')
-      strong='Javascript.mom'
-    a( href='/list' class='nav-item')='归档'
-    a( href='/about' class='nav-item')='关于'
-  block content
+  body
+    div.nav.serif
+      div.search
+        input(placeholder='搜索...' class='search-input')
+        ul.search-complete
+      a(href="//javascript.mom" title='hoosin blogs' class='nav-item')
+        strong='Javascript.mom'
+      a( href='/list' class='nav-item')='归档'
+      a( href='/about' class='nav-item')='关于'
+    block content
 
-  script.
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?082e05b5e216918714dba5d0fa5ec5b9";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
+    script.
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?082e05b5e216918714dba5d0fa5ec5b9";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
