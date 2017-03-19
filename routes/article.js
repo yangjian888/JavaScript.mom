@@ -15,7 +15,7 @@ router.get('/', async(ctx, next) => {
     body = JSON.parse(fs.readFileSync(`./db/article/${articleId}.json`, 'utf-8'))
   } catch (err) {
     console.log(err)
-    body = {body: '#### 暫無內容'}
+    body = {body: '#### 暂无内容'}
   }
 
 
@@ -24,7 +24,7 @@ router.get('/', async(ctx, next) => {
 
   ctx.state = {
     title: body.title,
-    article: mdResult || '<p>暫無內容</p>',
+    article: mdResult || '<p>暂无内容</p>',
     url: ctx.req.url
   }
 
