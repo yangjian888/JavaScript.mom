@@ -10,6 +10,7 @@
     "need": "./node_modules/.bin/runkoa need.js",
     "cdn":"./node_modules/.bin/runkoa cdn.js"
   },
+  fsdfsdfsdfsd
   "dependencies": {
     "co": "^4.6.0",
     "co-request": "^1.0.0",
